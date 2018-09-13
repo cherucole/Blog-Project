@@ -7,6 +7,10 @@ from .. import db,photos
 import markdown2
 
 
+@main.route('/')
+def index():
+    return render_template('index.html')
+
 
 
 @main.route('/user/<uname>')

@@ -5,6 +5,7 @@ from . import login_manager
 from datetime import datetime
 
 
+
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
 
@@ -34,6 +35,13 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50))
+    subtitle = db.Column(db.String(50))
+    author = db.Column(db.String(20))
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    content = db.Column(db.Text)
 
 class Role(db.Model):
     __tablename__ = 'roles'

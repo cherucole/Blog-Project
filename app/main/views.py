@@ -23,9 +23,21 @@ def post(post_id):
 
     return render_template('post.html', post=post)
 
-@main.route('/add')
+@main.route('/add',methods=['GET', 'POST'])
 def add():
     form=AddPost()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        subtitle = form.subtitle.data
+        content = form.content.data
+
+        post = Post(title=title, subtitle=subtitle, content=content, user_id=current_user.id, date_posted=datetime.now())
+
+
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('.addpost',form=form ))
     return render_template('add.html', form=form)
 
 @main.route('/addpost', methods=['GET', 'POST'])

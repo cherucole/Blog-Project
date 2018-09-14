@@ -29,15 +29,16 @@ def add():
 
 @main.route('/addpost', methods=['POST'])
 def addpost():
-    title = request.form['title']
-    subtitle = request.form['subtitle']
-    author = request.form['author']
-    content = request.form['content']
+    form = AddPost()
+    if form.validate_on_submit():
+        title = form.title.data
+        subtitle = form.subtitle.data
+        content = form.content.data
 
-    post = Post(title=title, subtitle=subtitle, author=author, content=content, date_posted=datetime.now())
+        post = Post(title=title, subtitle=subtitle, content=content, date_posted=datetime.now())
 
-    db.session.add(post)
-    db.session.commit()
+        db.session.add(post)
+        db.session.commit()
 
     return redirect(url_for('index'))
 

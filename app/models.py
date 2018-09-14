@@ -16,7 +16,8 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     password_secure = db.Column(db.String(255))
-    # reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
+    posts = db.relationship('Post', backref='user', lazy="dynamic")
+    comments = db.relationship('Comment', backref='username', lazy="dynamic")
 
     pass_secure = db.Column(db.String(255))
 
@@ -36,12 +37,35 @@ class User(UserMixin,db.Model):
         return f'User {self.username}'
 
 class Post(db.Model):
+    __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))
     subtitle = db.Column(db.String(50))
-    author = db.Column(db.String(20))
+    comments = db.relationship('Comment',backref = 'post',lazy = "dynamic")
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     content = db.Column(db.Text)
+
+
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment_content = db.Column(db.String)
+    posted = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls, id):
+        comments = Comment.query.filter_by(pitch_id=id).all()
+        return comments
 
 class Role(db.Model):
     __tablename__ = 'roles'

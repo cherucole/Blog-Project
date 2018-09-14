@@ -15,8 +15,8 @@ class CommentForm(FlaskForm):
 
 
 class AddPost(FlaskForm):
-    title = TextAreaField('Title.',validators = [Required()])
-    subtitle = TextAreaField('Subtitle.',validators = [Required()])
-    content = TextAreaField('Content',validators = [Required()])
+    title = TextAreaField('Title.')
+    subtitle = TextAreaField('Subtitle.')
+    content = TextAreaField('Content')
     submit = SubmitField('Submit')
 

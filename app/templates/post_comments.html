@@ -75,21 +75,7 @@
       </div>
     </header>
 
-    {{comments.posted}}
-        {{comments.id}}
 
-
-
-      {% for comment in comments %}
-<div class="card">
-  <div class="card-title">
-    <h5>{{comment.posted}}</h5> test display
-  </div>
-  <div class="card-body">
-      <p>{{comment.comment}}</p>
-  </div>
-</div>
-{% endfor %}
 
 
     <!-- Post Content -->
@@ -102,6 +88,18 @@
         </div>
       </div>
     </article>
+
+
+      {% for comment in comments %}
+<div class="card">
+  <div class="card-title">
+    <h5>commented on {{comment.posted.strftime('%B %d, %Y')}}</h5>
+  </div>
+  <div class="card-body">
+      <p>{{comment.comment}}</p>
+  </div>
+</div>
+{% endfor %}
 
 
     <hr>

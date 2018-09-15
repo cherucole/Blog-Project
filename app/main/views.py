@@ -20,7 +20,7 @@ def about():
 @main.route('/post/<int:post_id>' ,methods=['GET', 'POST'])
 def post(post_id):
     form = CommentForm()
-    comments=Comment.get_comments(post_id)
+    # comments=Comment.get_comments(post_id)
 
     post = Post.query.filter_by(id=post_id).one()
     if form.validate_on_submit():
@@ -30,7 +30,9 @@ def post(post_id):
 
         db.session.add(new_comment)
         db.session.commit()
-        return render_template('post_comments.html', post=post, comments=comments, post_id=post.id)
+        return redirect(url_for('main.post_comments', post_id=post.id))
+
+        # return render_template('post_comments.html', post=post, comments=comments, post_id=post.id)
 
     return render_template('post.html', post=post, form=form)
 
@@ -58,7 +60,7 @@ def add():
 
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('.addpost',form=form ))
+        return redirect(url_for('.post',form=form, post_id=post.id))
     return render_template('add.html', form=form)
 
 @main.route('/user/<uname>')

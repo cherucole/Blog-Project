@@ -64,7 +64,7 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls, id):
-        comments = Comment.query.filter_by(pitch_id=id).all()
+        comments = Comment.query.filter_by(post_id=id).all()
         return comments
 
 class Role(db.Model):

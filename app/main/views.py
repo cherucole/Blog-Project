@@ -21,6 +21,8 @@ def about():
 def post(post_id):
     form = CommentForm()
     post = Post.query.filter_by(id=post_id).one()
+    comments=Comment.get_comments(post_id)
+
     if form.validate_on_submit():
         comment = form.comment.data
 
@@ -30,7 +32,7 @@ def post(post_id):
         db.session.commit()
         return redirect(url_for('main.post_comments', post_id=post.id))
 
-    return render_template('post.html', post=post, form=form)
+    return render_template('post.html', post=post, form=form, comments=comments)
 
 
 @main.route('/post_comments/<int:post_id>' ,methods=['GET', 'POST'])

@@ -85,6 +85,7 @@
         </div>
       </div>
     </article>
+
     <div class="container">
           <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -93,6 +94,20 @@
         </div>
       </div>
         </div>
+
+
+      {% for comment in comments %}
+<div class="card">
+  <div class="card-title">
+    <h5>commented on {{comment.posted.strftime('%B %d, %Y')}}</h5>
+  </div>
+  <div class="card-body">
+      <p>{{comment.comment}}</p>
+            <p> by {{comment.username}}</p>
+
+  </div>
+</div>
+{% endfor %}
 
     <hr>
 

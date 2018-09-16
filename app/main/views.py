@@ -64,7 +64,7 @@ def delete_comment(id):
 
     db.session.delete(comment)
     db.session.commit()
-    return redirect(url_for('.post_comments', comments=comment, id=comment.id))
+    return redirect(url_for('.post_comments', comments=comment))
 
 @main.route('/add',methods=['GET', 'POST'])
 @login_required

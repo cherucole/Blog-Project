@@ -26,7 +26,7 @@ def post(post_id):
     if form.validate_on_submit():
         comment = form.comment.data
 
-        new_comment = Comment(comment=comment,user_id=current_user.id, post_id=post_id)
+        new_comment = Comment(comment=comment, post_id=post_id)
 
         db.session.add(new_comment)
         db.session.commit()

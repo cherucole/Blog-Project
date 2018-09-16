@@ -43,6 +43,20 @@ def post_comments(post_id):
 
     return render_template('post_comments.html', post=post, comments=comments, post_id=post.id)
 
+
+
+@main.route('/post/delete/<int:post_id>' ,methods=['GET', 'POST'])
+def delete_post(post_id):
+
+    post = Post.query.filter_by(id=post_id).one()
+    db.session.delete(post)
+    db.session.commit()
+    # return render_template('index.html', post=post, post_id=post.id)
+    return redirect(url_for('.index', post=post, post_id=post.id))
+
+    # return render_template('post_comments.html', post=post, post_id=post.id)
+
+
 @main.route('/add',methods=['GET', 'POST'])
 def add():
     form=AddPost()

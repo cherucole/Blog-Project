@@ -1,0 +1,31 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+<br>
+
+  <div class="container">
+   <div class="card border-secondary mb-3" style="max-width: 18rem;">
+   <div class="card-header"><h5>Welcome to Cherucole's Blog</h5>
+
+  </div>
+
+   <div class="card-body text-secondary">
+
+    <p class="card-text">Stay tuned for smoking hotttttt content!!!</p>
+
+
+         <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {{wtf.quick_form(subscriber_form)}}
+
+        </div>
+      </div>
+  </div>
+
+
+   <br>
+  </div>
+</div>
+{% endblock %}
+</div>

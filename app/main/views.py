@@ -5,6 +5,8 @@ from ..models import *
 from flask_login import login_required, current_user
 from .. import db,photos
 import markdown2
+from ..email import mail_message
+
 
 
 @main.route('/')
@@ -123,3 +125,25 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+
+@main.route('/subscribe', methods=['GET','POST'])
+def subscriber():
+   posts = Post.query.order_by(Post.date_posted.desc()).all()
+   subscriber_form=SubscriberForm()
+
+   if subscriber_form.validate_on_submit():
+
+       subscriber= Subscriber(email=subscriber_form.email.data,name = subscriber_form.name.data)
+
+       db.session.add(subscriber)
+       db.session.commit()
+
+       mail_message("Hello, Welcome To Cherucole's Blog.","email/welcome_user",subscriber.email,subscriber=subscriber)
+       return redirect(url_for('main.index', posts=posts))
+
+   subscriber = Post.query.all()
+
+   post = Post.query.all()
+
+   return render_template('subscribe.html',subscriber=subscriber,subscriber_form=subscriber_form,post=post)

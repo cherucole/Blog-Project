@@ -66,8 +66,11 @@
     </header>
 
     <div class="container">
+
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+            <button type="button" class="btn btn-outline-primary"><a href="/subscribe">Subscribe</a></button>
+<br>
         {% for post in posts %}
           <div class="post-preview">
             <a href="post/{{ post.id }}">

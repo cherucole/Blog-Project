@@ -51,5 +51,16 @@ class CommentTest(unittest.TestCase):
         self.assertEqual(self.new_comment.user_id, 1)
         self.assertEqual(self.new_comment.post_id, 1)
 
+    def test_save_comment(self):
+        self.new_comment.save_comment()
+        self.assertTrue(len(Comment.query.all()) > 0)
+
+
+    def test_get_comment_by_post_id(self):
+        self.new_comment.save_comment()
+        get_comments = Comment.get_comments(12345)
+        self.assertTrue(len(get_comments) == 1)
+
+
 
 

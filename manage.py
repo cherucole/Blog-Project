@@ -8,7 +8,7 @@ app = create_app('production')
 
 # app = create_app('test')
 
-# app = create_app('development')
+app = create_app('development')
 
 
 
@@ -29,7 +29,7 @@ def test():
 
 @manager.shell
 def make_shell_context():
-    return dict(app = app,db = db,User = User,Role=Role )
+    return dict(app = app,db = db,User = User )
 
 
 

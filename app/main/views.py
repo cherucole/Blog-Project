@@ -55,24 +55,31 @@ def delete_post(post_id):
     return redirect(url_for('.index', post=post, post_id=post.id))
 
 
+# @main.route('/comment/delete/<int:id>' ,methods=['GET', 'POST'])
+# @login_required
+# def delete_comment(id):
+#
+#     post = Post.query.filter_by(id=id).first()
+#     comment = Comment.query.filter_by(id=id).first()
+#     # comment = Comment.query.filter_by(id=post_id).one()
+#
+#     db.session.delete(comment)
+#     db.session.commit()
+#     return redirect(url_for('.post_comments', comment=comment))
+#
+
+
 @main.route('/comment/delete/<int:id>' ,methods=['GET', 'POST'])
 @login_required
 def delete_comment(id):
+
     post = Post.query.filter_by(id=id).first()
     comment = Comment.query.filter_by(id=id).first()
     # comment = Comment.query.filter_by(id=post_id).one()
 
     db.session.delete(comment)
     db.session.commit()
-    return redirect(url_for('.post_comments', comment=comment))
-
-@main.route('/post_comments_delete/<int:post_id>' ,methods=['GET', 'POST'])
-def post_comments_delete(post_id):
-
-    post = Post.query.filter_by(id=post_id).one()
-    comments=Comment.get_comments(post_id)
-
-    return render_template('post_comments.html', post=post, comments=comments, post_id=post.id)
+    return redirect(url_for('.index', comment=comment))
 
 @main.route('/add',methods=['GET', 'POST'])
 @login_required

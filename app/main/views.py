@@ -71,6 +71,8 @@ def delete_comment(post_id):
 @main.route('/add',methods=['GET', 'POST'])
 @login_required
 def add():
+    # add = True
+
     form=AddPost()
 
     if form.validate_on_submit():
@@ -147,3 +149,28 @@ def subscriber():
    post = Post.query.all()
 
    return render_template('subscribe.html',subscriber=subscriber,subscriber_form=subscriber_form,post=post)
+
+
+@main.route('/blogpost/edit/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_blogpost(post_id):
+    # add = False
+
+
+    post = Post.query.filter_by(id=post_id).first()
+    form = AddPost(obj=post)
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.subtitle = form.subtitle.data
+        post.content = form.content.data
+        db.session.commit()
+
+        return redirect(url_for('main.index' ,post_id=post.id, id=post.id))
+
+    form.content.data = post.content
+
+    form.title.data = post.title
+    form.subtitle.data=post.subtitle
+
+
+    return render_template('add.html', action="Edit", add = add, form=form, post=post, title="Edit Department")

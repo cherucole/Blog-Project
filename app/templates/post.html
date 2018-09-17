@@ -84,14 +84,19 @@
           </div>
         </div>
       </div>
+                            <button type="button" class="btn btn-outline-primary"><a href="/post/delete/{{post.id}}">Delete Post</a></button>
+    <button type="button" class="btn btn-outline-primary"><a href="/blogpost/edit/{{post.id}}">Delete Post</a></button>
     </article>
-<button type="button" class="btn btn-outline-primary"><a href="/post/delete/{{post.id}}">Delete Post</a></button>
+
+
 
 
     <br>
 
     <div class="container">
+
           <div class="row">
+
         <div class="col-lg-8 col-md-10 mx-auto">
             {{wtf.quick_form(form)}}
 
